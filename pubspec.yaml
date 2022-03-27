@@ -1,4 +1,4 @@
-name: firebase_admin
+name: firebase_admin_sdk
 description: A port of the Firebase admin sdk to pure, idiomatic Dart code
 version: 0.0.1
 homepage: https://github.com/OttomanDeveloper/firebase_admin_sdk

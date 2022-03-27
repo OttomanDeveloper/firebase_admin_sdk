@@ -1,9 +1,9 @@
 import 'package:clock/clock.dart';
-import 'package:firebase_admin/src/auth/credential.dart';
-import 'package:firebase_admin/src/auth/token_verifier.dart';
-import 'package:firebase_admin/src/credential.dart';
-import 'package:firebase_admin/firebase_admin.dart';
-import 'package:firebase_admin/src/testing.dart';
+import 'package:firebase_admin_sdk/src/auth/credential.dart';
+import 'package:firebase_admin_sdk/src/auth/token_verifier.dart';
+import 'package:firebase_admin_sdk/src/credential.dart';
+import 'package:firebase_admin_sdk/firebase_admin.dart';
+import 'package:firebase_admin_sdk/src/testing.dart';
 import 'package:jose/jose.dart';
 
 export 'firebase_admin.dart';

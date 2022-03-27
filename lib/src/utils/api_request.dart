@@ -1,6 +1,4 @@
-
-
-import 'package:firebase_admin/firebase_admin.dart';
+import 'package:firebase_admin_sdk/firebase_admin.dart';
 import 'package:http/http.dart';
 
 import '../app.dart';

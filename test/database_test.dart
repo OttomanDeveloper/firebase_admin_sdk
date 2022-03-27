@@ -1,4 +1,4 @@
-import 'package:firebase_admin/testing.dart';
+import 'package:firebase_admin_sdk/testing.dart';
 import 'package:test/test.dart';
 
 void main() async {

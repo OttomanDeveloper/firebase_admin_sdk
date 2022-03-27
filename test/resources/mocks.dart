@@ -1,7 +1,7 @@
-import 'package:firebase_admin/src/auth/credential.dart';
-import 'package:firebase_admin/src/testing.dart';
-import 'package:firebase_admin/testing.dart';
-import 'package:firebase_admin/src/app.dart';
+import 'package:firebase_admin_sdk/src/auth/credential.dart';
+import 'package:firebase_admin_sdk/src/testing.dart';
+import 'package:firebase_admin_sdk/testing.dart';
+import 'package:firebase_admin_sdk/src/app.dart';
 
 var projectId = 'project_id';
 

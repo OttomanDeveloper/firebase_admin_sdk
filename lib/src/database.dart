@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:firebase_admin/src/service.dart';
+import 'package:firebase_admin_sdk/src/service.dart';
 
 import 'app/app.dart';
 import 'app/app_extension.dart';

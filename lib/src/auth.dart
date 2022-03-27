@@ -1,6 +1,6 @@
-import 'package:firebase_admin/firebase_admin.dart';
-import 'package:firebase_admin/src/auth/token_generator.dart';
-import 'package:firebase_admin/src/auth/token_verifier.dart';
+import 'package:firebase_admin_sdk/firebase_admin.dart';
+import 'package:firebase_admin_sdk/src/auth/token_generator.dart';
+import 'package:firebase_admin_sdk/src/auth/token_verifier.dart';
 import 'package:openid_client/openid_client.dart';
 
 import 'auth/auth_api_request.dart';

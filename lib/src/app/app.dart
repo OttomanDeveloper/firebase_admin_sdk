@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:firebase_admin/src/utils/error.dart';
+import 'package:firebase_admin_sdk/src/utils/error.dart';
 
 import '../credential.dart';
 import 'package:clock/clock.dart';

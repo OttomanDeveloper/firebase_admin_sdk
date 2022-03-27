@@ -1,6 +1,6 @@
 import 'package:clock/clock.dart';
-import 'package:firebase_admin/firebase_admin.dart';
-import 'package:firebase_admin/src/auth/credential.dart';
+import 'package:firebase_admin_sdk/firebase_admin.dart';
+import 'package:firebase_admin_sdk/src/auth/credential.dart';
 import 'package:jose/jose.dart';
 
 import '../utils/validator.dart' as validator;

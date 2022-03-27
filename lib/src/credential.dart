@@ -26,8 +26,7 @@ class Credentials {
 
     var client = Client(
       issuer,
-      clientId ??
-          '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com',
+      clientId ?? 'foo.apps.googleusercontent.com',
       clientSecret: clientSecret ?? 'j9iVZfS8kkCEFUPaAeJV0sAi',
     );
 
@@ -155,8 +154,7 @@ class Credentials {
       if (refreshToken != null) {
         // End user credentials from the Google Cloud SDK or Google Cloud Shell
         // are not supported
-        if (refreshToken['client_id'] !=
-            '764086051850-6qr4p6gpi6hn506pt8ejuq83di341hur.apps.googleusercontent.com') {
+        if (refreshToken['client_id'] != 'foo.apps.googleusercontent.com') {
           return RefreshTokenCredential(refreshToken);
         }
       }
@@ -168,8 +166,7 @@ class Credentials {
       if (f.existsSync()) {
         var v = json.decode(f.readAsStringSync());
         return RefreshTokenCredential(v['tokens']
-          ..['client_id'] =
-              '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com'
+          ..['client_id'] = 'foo.apps.googleusercontent.com'
           ..['client_secret'] = 'j9iVZfS8kkCEFUPaAeJV0sAi');
       }
     }

@@ -470,13 +470,13 @@
       "languageVersion": "2.12"
     },
     {
-      "name": "firebase_admin",
+      "name": "firebase_admin_sdk",
       "rootUri": "../",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2022-03-26T18:30:25.790463Z",
+  "generated": "2022-03-26T19:05:51.034120Z",
   "generator": "pub",
   "generatorVersion": "2.16.1"
 }
