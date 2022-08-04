@@ -253,6 +253,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.4"
+  lints:
+    dependency: "direct dev"
+    description:
+      name: lints
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   logging:
     dependency: transitive
     description:
@@ -316,13 +323,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.2"
-  pedantic:
-    dependency: "direct dev"
-    description:
-      name: pedantic
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.11.1"
   petitparser:
     dependency: transitive
     description:
@@ -541,4 +541,4 @@ packages:
     source: hosted
     version: "3.1.1"
 sdks:
-  dart: ">=2.16.0 <3.0.0"
+  dart: ">=2.17.0-206.0.dev <3.0.0"
