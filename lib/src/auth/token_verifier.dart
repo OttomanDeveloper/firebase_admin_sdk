@@ -21,9 +21,9 @@ class FirebaseTokenVerifier {
 
   /// Verifies the format and signature of a Firebase Auth JWT token.
   Future<IdToken> verifyJwt(String jwtToken) async {
-    var client = await getOpenIdClient();
+    final Client client = await getOpenIdClient();
 
-    var credential = client.createCredential(idToken: jwtToken);
+    final credential = client.createCredential(idToken: jwtToken);
 
     await for (var e in credential.validateToken()) {
       throw FirebaseAuthError.invalidArgument(

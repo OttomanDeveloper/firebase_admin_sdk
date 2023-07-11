@@ -20,8 +20,9 @@ class _AuthTokenProvider implements AuthTokenProvider {
 
   @override
   Stream<Future<String>?> get onTokenChanged {
-    var controller = StreamController<Future<String>?>();
-    var listener = (v) => controller.add(Future.value(v));
+    final StreamController<Future<String>?> controller =
+        StreamController<Future<String>?>();
+    void listener(String v) => controller.add(Future.value(v));
 
     controller.onListen = () {
       internals.addAuthTokenListener(listener);
@@ -42,9 +43,9 @@ class Database implements FirebaseService {
   /// Do not call this constructor directly. Instead, use app().database.
   Database(this.app)
       : _database = StandaloneFirebaseDatabase(
-            app.options.databaseUrl ??
-                'https://${app.projectId}.firebaseio.com/',
-            authTokenProvider: _AuthTokenProvider(app.internals));
+          app.options.databaseUrl ?? 'https://${app.projectId}.firebaseio.com/',
+          authTokenProvider: _AuthTokenProvider(app.internals),
+        );
 
   /// Returns a [Reference] representing the location in the Database
   /// corresponding to the provided [path]. If no path is provided, the

@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:clock/clock.dart';
+import 'package:dotenv/dotenv.dart';
 import 'package:firebase_admin_sdk/src/auth/credential.dart';
-import 'package:firebase_admin_sdk/src/credential.dart';
 import 'package:firebase_admin_sdk/src/testing.dart';
 import 'package:test/test.dart';
 
@@ -11,9 +11,7 @@ import 'package:firebase_admin_sdk/src/service.dart';
 import 'dart:async';
 import 'resources/mocks.dart' as mocks;
 import 'package:fake_async/fake_async.dart';
-import 'package:dotenv/dotenv.dart';
 
-import 'resources/mocks.dart';
 import 'package:firebase_admin_sdk/src/app.dart';
 
 Matcher throwsAppError([String? message]) =>
@@ -80,7 +78,7 @@ void main() {
       });
 
       test('should respect leading and trailing whitespace', () {
-        var newMockAppName = '  ' + mocks.appName + '  ';
+        var newMockAppName = '  ${mocks.appName}  ';
         mockApp = admin.initializeApp(mocks.appOptions, newMockAppName);
         expect(mockApp.name, isNot(mocks.appName));
         expect(mockApp.name, newMockAppName);

@@ -1,7 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
-import 'package:firebase_admin_sdk/firebase_admin.dart';
 import 'package:firebase_admin_sdk/src/auth/auth_api_request.dart';
 import 'package:firebase_admin_sdk/src/auth/user_record.dart';
 import 'package:firebase_admin_sdk/testing.dart';
@@ -108,10 +106,8 @@ void main() {
     });
 
     const email = 'user@example.com';
-    var expectedLink = 'https://custom.page.link?link=' +
-        Uri.encodeComponent(
-            'https://projectId.firebaseapp.com/__/auth/action?oobCode=CODE') +
-        '&apn=com.example.android&ibi=com.example.ios';
+    var expectedLink =
+        'https://custom.page.link?link=${Uri.encodeComponent('https://projectId.firebaseapp.com/__/auth/action?oobCode=CODE')}&apn=com.example.android&ibi=com.example.ios';
 
     group('Auth.generateSignInWithEmailLink()', () {
       var actionCodeSettings = ActionCodeSettings(

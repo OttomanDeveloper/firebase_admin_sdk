@@ -69,7 +69,7 @@ class FirebaseAuthError extends _PrefixedFirebaseError {
     // serverErrorCode could contain additional details:
     // ERROR_CODE : Detailed message which can also contain colons
     final colonSeparator = serverErrorCode.indexOf(':');
-    var customMessage;
+    String? customMessage;
     if (colonSeparator != -1) {
       customMessage = serverErrorCode.substring(colonSeparator + 1).trim();
       serverErrorCode = serverErrorCode.substring(0, colonSeparator).trim();
@@ -216,9 +216,9 @@ class FirebaseAuthError extends _PrefixedFirebaseError {
   /// report the problem to our Bug Report support channel.
   FirebaseAuthError.internalError([String? message, rawServerResponse])
       : this(
-            'internal-error',
-            (message ?? 'An internal error has occurred.') +
-                'Raw server response: "${json.encode(rawServerResponse)}"');
+          'internal-error',
+          '${message ?? 'An internal error has occurred.'}Raw server response: "${json.encode(rawServerResponse)}"',
+        );
 
   /// An invalid argument was provided to an Authentication method.
   ///

@@ -19,7 +19,7 @@ class FirebaseAppInternals {
 
   /// Gets an auth token for the associated app.
   Future<AccessToken> getToken([bool forceRefresh = false]) {
-    var expired = _cachedToken == null ||
+    final bool expired = _cachedToken == null ||
         _cachedToken!.expirationTime.isBefore(clock.now());
 
     if (_cachedTokenFuture != null && !forceRefresh && !expired) {
@@ -45,28 +45,28 @@ class FirebaseAppInternals {
       // this.credential_ may be an external class; resolving it in a future helps us
       // protect against exceptions and upgrades the result to a future in all cases.
       return _cachedTokenFuture = Future.microtask(() async {
-        var token = await credential.getAccessToken();
+        final AccessToken token = await credential.getAccessToken();
 
-        var hasAccessTokenChanged =
+        final bool hasAccessTokenChanged =
             _cachedToken?.accessToken != token.accessToken;
-        var hasExpirationChanged =
+        final hasExpirationChanged =
             _cachedToken?.expirationTime != token.expirationTime;
         if (_cachedToken == null ||
             hasAccessTokenChanged ||
             hasExpirationChanged) {
           _cachedToken = token;
-          _tokenListeners.forEach((listener) {
+          for (void Function(String) listener in _tokenListeners) {
             listener(token.accessToken);
-          });
+          }
         }
 
-        var expiresIn = token.expirationTime.difference(clock.now());
+        final Duration expiresIn = token.expirationTime.difference(clock.now());
         // Establish a timeout to proactively refresh the token every minute starting at five
         // minutes before it expires. Once a token refresh succeeds, no further retries are
         // needed; if it fails, retry every minute until the token expires (resulting in a total
         // of four retries: at 4, 3, 2, and 1 minutes).
-        var refreshTime = expiresIn - Duration(minutes: 5);
-        var numRetries = 4;
+        Duration refreshTime = expiresIn - Duration(minutes: 5);
+        int numRetries = 4;
 
         // In the rare cases the token is short-lived (that is, it expires in less than five
         // minutes from when it was fetched), establish the timeout to refresh it after the

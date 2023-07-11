@@ -36,7 +36,7 @@ class FirebaseTokenGenerator {
   ];
 
   // Audience to use for Firebase Auth Custom tokens
-  static const firebaseAudience =
+  static const String firebaseAudience =
       'https://identitytoolkit.googleapis.com/google.identity.identitytoolkit.v1.IdentityToolkit';
 
   /// Creates a new Firebase Auth Custom token.
@@ -54,8 +54,8 @@ class FirebaseTokenGenerator {
       }
     }
 
-    var iat = clock.now();
-    var claims = {
+    final DateTime iat = clock.now();
+    final Map<String, dynamic> claims = {
       'aud': firebaseAudience,
       'iat': iat.millisecondsSinceEpoch ~/ 1000,
       'exp': iat.add(Duration(hours: 1)).millisecondsSinceEpoch ~/ 1000,
@@ -65,7 +65,7 @@ class FirebaseTokenGenerator {
       ...developerClaims
     };
 
-    var builder = JsonWebSignatureBuilder()
+    final JsonWebSignatureBuilder builder = JsonWebSignatureBuilder()
       ..jsonContent = claims
       ..setProtectedHeader('typ', 'JWT')
       ..addRecipient(certificate.privateKey, algorithm: 'RS256');

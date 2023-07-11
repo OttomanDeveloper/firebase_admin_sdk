@@ -41,14 +41,15 @@ class ApiClient {
 
   Future<Map<String, dynamic>> get(
       String endpoint, Map<String, dynamic> body) async {
-    var response = await httpClient.get(
-        Uri.parse('$baseUrl$endpoint').replace(queryParameters: body),
-        headers: _firebaseAuthHeader);
+    final Response response = await httpClient.get(
+      Uri.parse('$baseUrl$endpoint').replace(queryParameters: body),
+      headers: _firebaseAuthHeader,
+    );
     return _handleResponse(response);
   }
 
   Map<String, dynamic> _handleResponse(Response response) {
-    var data = json.decode(response.body);
+    final data = json.decode(response.body);
     if (response.statusCode < 300) {
       return data;
     }

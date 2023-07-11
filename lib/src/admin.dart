@@ -124,9 +124,9 @@ class FirebaseAdmin {
       return AppOptions(credential: credential!);
     }
     try {
-      final contents =
+      final String contents =
           config.startsWith('{') ? config : File(config).readAsStringSync();
-      var v = json.decode(contents) as Map;
+      final Map<dynamic, dynamic> v = json.decode(contents) as Map;
       return AppOptions(
         credential: credential!,
         projectId: v['projectId'],

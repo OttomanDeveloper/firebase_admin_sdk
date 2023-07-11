@@ -56,7 +56,7 @@ class Certificate {
           .toList());
     }
 
-    var k = JsonWebKey.fromJson({
+    final JsonWebKey k = JsonWebKey.fromJson({
       'kty': 'RSA',
       'n': _intToBase64(pKey.modulus),
       'd': _intToBase64(pKey.privateExponent),
@@ -67,7 +67,10 @@ class Certificate {
     });
 
     return Certificate(
-        projectId: json['project_id'], privateKey: k, clientEmail: clientEmail);
+      projectId: json['project_id'],
+      privateKey: k,
+      clientEmail: clientEmail,
+    );
   }
 }
 
@@ -102,7 +105,7 @@ class ServiceAccountCredential extends _OpenIdCredential
   }
 
   String _createAuthJwt() {
-    final claims = {
+    final Map<String, Object> claims = {
       'scope': [
         'https://www.googleapis.com/auth/cloud-platform',
         'https://www.googleapis.com/auth/firebase.database',
@@ -116,7 +119,7 @@ class ServiceAccountCredential extends _OpenIdCredential
       'exp': clock.now().add(Duration(hours: 1)).millisecondsSinceEpoch ~/ 1000
     };
 
-    var builder = JsonWebSignatureBuilder()
+    final JsonWebSignatureBuilder builder = JsonWebSignatureBuilder()
       ..jsonContent = claims
       ..addRecipient(certificate.privateKey, algorithm: 'RS256');
 
@@ -125,7 +128,7 @@ class ServiceAccountCredential extends _OpenIdCredential
 
   @override
   Future<openid.Credential> createCredential(openid.Client client) async {
-    var flow = openid.Flow.jwtBearer(client);
+    final openid.Flow flow = openid.Flow.jwtBearer(client);
     return await flow.callback({'jwt': _createAuthJwt(), 'state': flow.state});
   }
 }
@@ -140,9 +143,15 @@ abstract class _OpenIdCredential implements Credential {
 
   @override
   Future<AccessToken> getAccessToken() async {
-    var issuer = await openid.Issuer.discover(openid.Issuer.google);
-    var client = openid.Client(issuer, clientId, clientSecret: clientSecret);
-    var response = await (await createCredential(client)).getTokenResponse();
+    final openid.Issuer issuer =
+        await openid.Issuer.discover(openid.Issuer.google);
+    final openid.Client client = openid.Client(
+      issuer,
+      clientId,
+      clientSecret: clientSecret,
+    );
+    final openid.TokenResponse response =
+        await (await createCredential(client)).getTokenResponse();
     return _OpenIdAccessToken(openid.TokenResponse.fromJson({
       ...response.toJson(),
       'access_token': response.accessToken?.replaceAll(RegExp(r'\.*$'), '')
