@@ -149,10 +149,10 @@ packages:
     dependency: "direct main"
     description:
       name: dotenv
-      sha256: e169b516bc7b88801919e1c508772bcb8e3d0d1776a43f74ab692c57e741cd8a
+      sha256: dc4c91d8d5e9e361803fc81e8ea7ba0f35be483b656837ea6b9a3c41df308c68
       url: "https://pub.dev"
     source: hosted
-    version: "4.1.0"
+    version: "3.0.0"
   expressions:
     dependency: transitive
     description:
