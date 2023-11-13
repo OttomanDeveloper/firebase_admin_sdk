@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:convert';
+import 'package:meta/meta.dart';
 import 'package:x509/x509.dart';
 import '../utils/error.dart';
 import 'package:http/http.dart' as http;
@@ -10,18 +11,23 @@ import 'package:clock/clock.dart';
 import 'package:openid_client/openid_client.dart' as openid;
 
 /// Contains the properties necessary to use service-account JSON credentials.
+@immutable
 class Certificate {
   final String? projectId;
   final JsonWebKey privateKey;
   final String clientEmail;
 
-  Certificate(
-      {this.projectId, required this.privateKey, required this.clientEmail});
+  const Certificate({
+    this.projectId,
+    required this.privateKey,
+    required this.clientEmail,
+  });
 
   factory Certificate.fromPath(String filePath) {
     try {
       return Certificate.fromJson(
-          json.decode(File(filePath).readAsStringSync()));
+        json.decode(File(filePath).readAsStringSync()),
+      );
     } on FirebaseException {
       rethrow;
     } catch (error) {
@@ -42,12 +48,12 @@ class Certificate {
     var keyPair = (v is PrivateKeyInfo) ? v.keyPair : (v as KeyPair?)!;
     var pKey = keyPair.privateKey as RsaPrivateKey;
 
-    String _bytesToBase64(List<int> bytes) {
+    String bytesToBase64(List<int> bytes) {
       return base64Url.encode(bytes).replaceAll('=', '');
     }
 
-    String _intToBase64(BigInt v) {
-      return _bytesToBase64(v
+    String intToBase64(BigInt v) {
+      return bytesToBase64(v
           .toRadixString(16)
           .replaceAllMapped(RegExp('[0-9a-f]{2}'), (m) => '${m.group(0)},')
           .split(',')
@@ -58,10 +64,10 @@ class Certificate {
 
     final JsonWebKey k = JsonWebKey.fromJson({
       'kty': 'RSA',
-      'n': _intToBase64(pKey.modulus),
-      'd': _intToBase64(pKey.privateExponent),
-      'p': _intToBase64(pKey.firstPrimeFactor),
-      'q': _intToBase64(pKey.secondPrimeFactor),
+      'n': intToBase64(pKey.modulus),
+      'd': intToBase64(pKey.privateExponent),
+      'p': intToBase64(pKey.firstPrimeFactor),
+      'q': intToBase64(pKey.secondPrimeFactor),
       'alg': 'RS256',
       'kid': json['private_key_id']
     });
@@ -75,6 +81,7 @@ class Certificate {
 }
 
 /// Implementation of Credential that uses a service account certificate.
+@immutable
 class ServiceAccountCredential extends _OpenIdCredential
     implements FirebaseCredential {
   @override
@@ -88,11 +95,13 @@ class ServiceAccountCredential extends _OpenIdCredential
     {
       if (serviceAccountPathOrObject is Map) {
         return ServiceAccountCredential.fromJson(
-            serviceAccountPathOrObject.cast());
+          serviceAccountPathOrObject.cast(),
+        );
       }
       try {
         return ServiceAccountCredential.fromJson(
-            json.decode(File(serviceAccountPathOrObject).readAsStringSync()));
+          json.decode(File(serviceAccountPathOrObject).readAsStringSync()),
+        );
       } on FirebaseException {
         rethrow;
       } catch (error) {
@@ -105,8 +114,8 @@ class ServiceAccountCredential extends _OpenIdCredential
   }
 
   String _createAuthJwt() {
-    final Map<String, Object> claims = {
-      'scope': [
+    final Map<String, Object> claims = <String, Object>{
+      'scope': <String>[
         'https://www.googleapis.com/auth/cloud-platform',
         'https://www.googleapis.com/auth/firebase.database',
         'https://www.googleapis.com/auth/firebase.messaging',
@@ -127,9 +136,9 @@ class ServiceAccountCredential extends _OpenIdCredential
   }
 
   @override
-  Future<openid.Credential> createCredential(openid.Client client) async {
+  Future<openid.Credential> createCredential(openid.Client client) {
     final openid.Flow flow = openid.Flow.jwtBearer(client);
-    return await flow.callback({'jwt': _createAuthJwt(), 'state': flow.state});
+    return flow.callback({'jwt': _createAuthJwt(), 'state': flow.state});
   }
 }
 
@@ -143,8 +152,9 @@ abstract class _OpenIdCredential implements Credential {
 
   @override
   Future<AccessToken> getAccessToken() async {
-    final openid.Issuer issuer =
-        await openid.Issuer.discover(openid.Issuer.google);
+    final openid.Issuer issuer = await openid.Issuer.discover(
+      openid.Issuer.google,
+    );
     final openid.Client client = openid.Client(
       issuer,
       clientId,
@@ -152,7 +162,7 @@ abstract class _OpenIdCredential implements Credential {
     );
     final openid.TokenResponse response =
         await (await createCredential(client)).getTokenResponse();
-    return _OpenIdAccessToken(openid.TokenResponse.fromJson({
+    return _OpenIdAccessToken(openid.TokenResponse.fromJson(<String, dynamic>{
       ...response.toJson(),
       'access_token': response.accessToken?.replaceAll(RegExp(r'\.*$'), '')
     }));

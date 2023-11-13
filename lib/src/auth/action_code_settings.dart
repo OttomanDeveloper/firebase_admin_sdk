@@ -8,7 +8,7 @@ extension ActionCodeSettingsRequestBuilder on ActionCodeSettings {
       throw FirebaseAuthError.invalidDynamicLinkDomain();
     }
 
-    return {
+    return <String, dynamic>{
       'continueUrl': url,
       'canHandleCodeInApp': handleCodeInApp ?? false,
       'dynamicLinkDomain': dynamicLinkDomain,

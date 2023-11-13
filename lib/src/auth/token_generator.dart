@@ -18,7 +18,7 @@ class FirebaseTokenGenerator {
       (app.options.credential as ServiceAccountCredential).certificate;
 
   // List of blacklisted claims which cannot be provided when creating a custom token
-  static const blacklistedClaims = [
+  static const List<String> blacklistedClaims = <String>[
     'acr',
     'amr',
     'at_hash',
@@ -44,18 +44,20 @@ class FirebaseTokenGenerator {
       String uid, Map<String, dynamic> developerClaims) async {
     if (!validator.isUid(uid)) {
       throw FirebaseAuthError.invalidArgument(
-          'First argument to createCustomToken() must be a non-empty string uid.');
+        'First argument to createCustomToken() must be a non-empty string uid.',
+      );
     }
 
-    for (var key in developerClaims.keys) {
+    for (String key in developerClaims.keys) {
       if (blacklistedClaims.contains(key)) {
         throw FirebaseAuthError.invalidArgument(
-            'Developer claim "$key" is reserved and cannot be specified.');
+          'Developer claim "$key" is reserved and cannot be specified.',
+        );
       }
     }
 
     final DateTime iat = clock.now();
-    final Map<String, dynamic> claims = {
+    final Map<String, dynamic> claims = <String, dynamic>{
       'aud': firebaseAudience,
       'iat': iat.millisecondsSinceEpoch ~/ 1000,
       'exp': iat.add(Duration(hours: 1)).millisecondsSinceEpoch ~/ 1000,

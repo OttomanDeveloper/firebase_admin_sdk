@@ -1,6 +1,6 @@
-import 'package:openid_client/openid_client.dart';
-
-import '../../firebase_admin.dart';
+import 'package:openid_client/openid_client.dart'
+    show Client, IdToken, Credential, Issuer;
+import '../../firebase_admin.dart' show App, FirebaseAuthError;
 import '../app/app_extension.dart';
 import 'package:meta/meta.dart';
 import '../utils/validator.dart' as validator;
@@ -23,16 +23,18 @@ class FirebaseTokenVerifier {
   Future<IdToken> verifyJwt(String jwtToken) async {
     final Client client = await getOpenIdClient();
 
-    final credential = client.createCredential(idToken: jwtToken);
+    final Credential credential = client.createCredential(idToken: jwtToken);
 
-    await for (var e in credential.validateToken()) {
+    await for (Exception e in credential.validateToken()) {
       throw FirebaseAuthError.invalidArgument(
-          'Validating $_jwtName failed: $e');
+        'Validating $_jwtName failed: $e',
+      );
     }
 
     if (!validator.isUid(credential.idToken.claims.subject)) {
       throw FirebaseAuthError.invalidArgument(
-          '$_jwtName has "sub" (subject) claim which is not a valid uid');
+        '$_jwtName has "sub" (subject) claim which is not a valid uid',
+      );
     }
 
     return credential.idToken;
@@ -40,7 +42,7 @@ class FirebaseTokenVerifier {
 
   @visibleForTesting
   Future<Client> getOpenIdClient() async {
-    var issuer = await Issuer.discover(Issuer.firebase(projectId));
+    final Issuer issuer = await Issuer.discover(Issuer.firebase(projectId));
     return Client(issuer, projectId);
   }
 }

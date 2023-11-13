@@ -107,4 +107,27 @@ class AppOptions {
     this.projectId,
     this.storageBucket,
   });
+
+  @override
+  bool operator ==(covariant AppOptions other) {
+    if (identical(this, other)) return true;
+
+    return other.credential == credential &&
+        other.databaseUrl == databaseUrl &&
+        other.projectId == projectId &&
+        other.storageBucket == storageBucket;
+  }
+
+  @override
+  int get hashCode {
+    return credential.hashCode ^
+        databaseUrl.hashCode ^
+        projectId.hashCode ^
+        storageBucket.hashCode;
+  }
+
+  @override
+  String toString() {
+    return 'AppOptions(credential: $credential, databaseUrl: $databaseUrl, projectId: $projectId, storageBucket: $storageBucket)';
+  }
 }

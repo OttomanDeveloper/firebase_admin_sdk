@@ -7,17 +7,17 @@ extension GetProjectIdExtension on App {
 }
 
 String _getProjectId(App app) {
-  final options = app.options;
+  final AppOptions options = app.options;
   if (options.projectId != null && options.projectId!.isNotEmpty) {
     return options.projectId!;
   }
 
-  final cert = _tryGetCertificate(options.credential);
+  final Certificate? cert = _tryGetCertificate(options.credential);
   if (cert != null && cert.projectId != null && cert.projectId!.isNotEmpty) {
     return cert.projectId!;
   }
 
-  final projectId = Platform.environment['GOOGLE_CLOUD_PROJECT'] ??
+  final String? projectId = Platform.environment['GOOGLE_CLOUD_PROJECT'] ??
       Platform.environment['GCLOUD_PROJECT'];
   if (projectId != null && projectId.isNotEmpty) {
     return projectId;

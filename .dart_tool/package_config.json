@@ -75,9 +75,9 @@
     },
     {
       "name": "collection",
-      "rootUri": "file:///C:/Users/Muhammad%20Usman/AppData/Local/Pub/Cache/hosted/pub.dev/collection-1.18.0",
+      "rootUri": "file:///C:/Users/Muhammad%20Usman/AppData/Local/Pub/Cache/hosted/pub.dev/collection-1.17.0",
       "packageUri": "lib/",
-      "languageVersion": "2.18"
+      "languageVersion": "2.12"
     },
     {
       "name": "convert",
@@ -135,9 +135,15 @@
     },
     {
       "name": "firebase_dart",
-      "rootUri": "file:///C:/Users/Muhammad%20Usman/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_dart-1.0.11",
+      "rootUri": "file:///C:/Users/Muhammad%20Usman/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_dart-1.1.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
+    },
+    {
+      "name": "firebaseapis",
+      "rootUri": "file:///C:/Users/Muhammad%20Usman/AppData/Local/Pub/Cache/hosted/pub.dev/firebaseapis-0.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
     },
     {
       "name": "fixnum",
@@ -147,9 +153,9 @@
     },
     {
       "name": "flutter_lints",
-      "rootUri": "file:///C:/Users/Muhammad%20Usman/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_lints-2.0.2",
+      "rootUri": "file:///C:/Users/Muhammad%20Usman/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_lints-3.0.1",
       "packageUri": "lib/",
-      "languageVersion": "2.18"
+      "languageVersion": "3.0"
     },
     {
       "name": "frontend_server_client",
@@ -174,12 +180,6 @@
       "rootUri": "file:///C:/Users/Muhammad%20Usman/AppData/Local/Pub/Cache/hosted/pub.dev/googleapis-9.2.0",
       "packageUri": "lib/",
       "languageVersion": "2.17"
-    },
-    {
-      "name": "googleapis_auth",
-      "rootUri": "file:///C:/Users/Muhammad%20Usman/AppData/Local/Pub/Cache/hosted/pub.dev/googleapis_auth-1.4.1",
-      "packageUri": "lib/",
-      "languageVersion": "2.19"
     },
     {
       "name": "hive",
@@ -231,7 +231,7 @@
     },
     {
       "name": "lints",
-      "rootUri": "file:///C:/Users/Muhammad%20Usman/AppData/Local/Pub/Cache/hosted/pub.dev/lints-2.1.1",
+      "rootUri": "file:///C:/Users/Muhammad%20Usman/AppData/Local/Pub/Cache/hosted/pub.dev/lints-3.0.0",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
@@ -273,7 +273,7 @@
     },
     {
       "name": "openid_client",
-      "rootUri": "file:///C:/Users/Muhammad%20Usman/AppData/Local/Pub/Cache/hosted/pub.dev/openid_client-0.4.7",
+      "rootUri": "file:///C:/Users/Muhammad%20Usman/AppData/Local/Pub/Cache/hosted/pub.dev/openid_client-0.4.8",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -488,7 +488,7 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2023-08-19T12:04:26.239787Z",
+  "generated": "2023-11-13T04:29:01.107485Z",
   "generator": "pub",
-  "generatorVersion": "3.1.0"
+  "generatorVersion": "3.1.5"
 }
